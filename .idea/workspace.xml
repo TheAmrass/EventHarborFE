@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b1f60c1f-8426-4381-941b-9ba79782a778" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/event-harbor-fe/src/layout/Navbar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/event-harbor-fe/src/pages/UserList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/event-harbor-fe/src/users/AddUser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/event-harbor-fe/src/users/EditUser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/event-harbor-fe/src/users/ViewUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event-harbor-fe/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/event-harbor-fe/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event-harbor-fe/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/event-harbor-fe/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/event-harbor-fe/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/event-harbor-fe/src/App.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2d0WHBzyGgHj4Wj5oOZi4uq4JJP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.App.js.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/admin.venglar/IdeaProjects/EventHarbor/Event HarborFE",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\admin.venglar\IdeaProjects\EventHarbor\Event HarborFE\event-harbor-fe\src" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b1f60c1f-8426-4381-941b-9ba79782a778" name="Changes" comment="" />
+      <created>1709145385953</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709145385953</updated>
+      <workItem from="1709145386991" duration="777000" />
+      <workItem from="1709206383387" duration="13547000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

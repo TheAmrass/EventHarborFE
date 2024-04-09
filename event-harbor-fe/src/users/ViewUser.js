@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useParams} from "react-router-dom";
-import axios from "axios";
+import api from "../security/Api";
 
 function ViewUser(props) {
 
@@ -14,14 +14,17 @@ function ViewUser(props) {
 
     })
 
-    const {id} = useParams();
+    const params = useParams();
+    const userId = params.id;
+    console.log("User ID: " + userId)
 
     useEffect(() => {
         loadUser()
     }, []);
 
     const loadUser = async () => {
-        const result = await axios.get(`http://localhost:8080/user/${id}`)
+        const result = await api.get(`/user/${userId}`)
+        console.log(result.data)
         setUser(result.data);
     }
 
@@ -32,7 +35,7 @@ function ViewUser(props) {
                     <h2 className="text-center m-4">Detail uživatele</h2>
                     <div className="card">
                         <div className="card-header">
-                            Detail uživatele s id: {user.id}
+                            Detail uživatele s id: {user.userId}
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item">
                                     <b>Jméno: </b>

@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
+import api from "../security/Api";
 
 function AddUser(props) {
     let navigate = useNavigate();
-
-    const {id}=useParams()
 
     const[user, setUser]=useState({
         name:"",
@@ -13,7 +12,6 @@ function AddUser(props) {
         email:"",
         registered: "",
         lastLogged: "",
-        passwordCheck:"",
         role: ""
 
     })
@@ -25,19 +23,22 @@ function AddUser(props) {
 
     }
 
+    const params = useParams();
+    const userId = params.id;
+
     useEffect(() => {
         loadUser()
     }, []);
 
-    const onSubmit=async (e)=>{
-        e.preventDefault();
-        await axios.put(`http://localhost:8080/user/${id}`,user)
-        navigate("/users");
+    const loadUser = async () => {
+        const result = await api.get(`/user/${userId}`)
+        setUser(result.data);
     }
 
-    const loadUser =async ()=>{
-        const result = await axios.get(`http://localhost:8080/user/${id}`)
-        setUser(result.data)
+    const onSubmit=async (e)=>{
+        e.preventDefault();
+        await api.put(`/user/${userId}`,user)
+        navigate("/users");
     }
 
     return (
@@ -78,17 +79,6 @@ function AddUser(props) {
                                    className="form-control"
                                    placeholder="Zadejte heslo"
                                    name="password"
-                                   onChange={(e) => onInputChange(e)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="PasswordCheck" className="form-label">
-                                Heslo pro kontrolu
-                            </label>
-                            <input type={"password"}
-                                   className="form-control"
-                                   placeholder="Zadejte heslo"
-                                   name="passwordCheck"
                                    onChange={(e) => onInputChange(e)}
                             />
                         </div>

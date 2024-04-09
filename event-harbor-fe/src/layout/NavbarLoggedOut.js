@@ -12,10 +12,7 @@ const Navbar = () => {
                              className="d-inline-block align-text-top d-none"/>
                         EventHarbor
                     </Link>
-                    <div className="containter-fluid">
-                        <Link className="btn btn-outline-light mx-2" to={"/logout"}>Odhlásit se</Link>
-                        <Link className="btn btn-outline-light mx-2" to={"/users"}>Přehled uživatel</Link>
-                    </div>
+                    <Link className="btn btn-outline-light mx-2" to={"/"} id="loginButton">Přihlásit se</Link>
                 </div>
             </nav>
         </div>

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
 import {Link, useParams} from "react-router-dom";
+import api from "../security/Api";
 
 function UserList(props) {
 
-    const {id} = useParams();
+    const {userId} = useParams();
 
     const[users,setUsers] = useState([]);
 
@@ -13,12 +13,12 @@ function UserList(props) {
     }, []);
 
     const loadUsers =async ()=>{
-        const result = await axios.get("http://localhost:8080/users");
+        const result = await api.get("/users");
         setUsers(result.data);
     };
 
-    const deleteUser=async(id)=>{
-        await axios.delete(`http://localhost:8080/user/${id}`)
+    const deleteUser=async(userId)=>{
+        await api.delete(`/user/${userId}`)
         await loadUsers()
     }
 
@@ -26,7 +26,7 @@ function UserList(props) {
         <div className="container">
             <div className="py-4">
                 <h1>Správa uživatel</h1>
-                <Link className="btn btn-primary" to="/addUser">Přidat uživatele</Link>
+                <Link className="btn btn-primary" to="addUser">Přidat uživatele</Link>
             </div>
             <div className="py-4">
                 <table className="table table-hover table-striped border shadow">
@@ -55,15 +55,15 @@ function UserList(props) {
                                 <td>{user.lastLogged}</td>
                                 <td>
                                     <Link className="btn btn-primary mx-2"
-                                    to={`/viewuser/${user.id}`}>
+                                    to={`./view/${user.userId}`}>
                                         Detail
                                     </Link>
                                     <Link className="btn btn-outline-primary mx-2"
-                                          to={`/edituser/${user.id}`}>
+                                          to={`./edit/${user.userId}`}>
                                         Upravit
                                     </Link>
                                     <button className="btn btn-danger mx-2"
-                                        onClick={()=>deleteUser(user.id)}>
+                                        onClick={()=>deleteUser(user.userId)}>
                                         Odstranit
                                     </button>
                                 </td>

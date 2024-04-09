@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
+import api from "../security/Api";
+import {useAuth} from "../security/AuthProvider";
 
 function AddUser(props) {
     let navigate = useNavigate();
@@ -9,14 +11,11 @@ function AddUser(props) {
         name:"",
         password:"",
         email:"",
-        registered: new Date(),
-        lastLogged: "",
-        passwordCheck:"",
         role: ""
 
     })
 
-    const{name, password, email, passwordCheck, role, registered, lastLogged}=user;
+    const{name, password, email, role}=user;
 
     const onInputChange=(e)=>{
         setUser({...user, [e.target.name]:e.target.value})
@@ -24,8 +23,14 @@ function AddUser(props) {
     }
 
     const onSubmit=async (e)=>{
-        e.preventDefault();
-        await axios.post("http://localhost:8080/user",user)
+        try {
+            e.preventDefault();
+            const response = await api.post("http://localhost:8080/api/v1/auth/register", user);
+            console.log("Uživatel byl úspěšně zaregistrován.", response.data);
+        } catch (error) {
+            console.error("Registrace se nezdařila: ", error.response.data.message);
+        }
+
         navigate("/users");
     }
 
@@ -68,18 +73,6 @@ function AddUser(props) {
                                    placeholder="Zadejte heslo"
                                    name="password"
                                    value={password}
-                                   onChange={(e) => onInputChange(e)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="PasswordCheck" className="form-label">
-                                Heslo pro kontrolu
-                            </label>
-                            <input type={"password"}
-                                   className="form-control"
-                                   placeholder="Zadejte heslo"
-                                   name="passwordCheck"
-                                   value={passwordCheck}
                                    onChange={(e) => onInputChange(e)}
                             />
                         </div>

@@ -25,7 +25,7 @@ function AddUser(props) {
     const onSubmit=async (e)=>{
         try {
             e.preventDefault();
-            const response = await api.post("http://localhost:8080/api/v1/auth/register", user);
+            const response = await api.post("auth/register", user);
             console.log("Uživatel byl úspěšně zaregistrován.", response.data);
         } catch (error) {
             console.error("Registrace se nezdařila: ", error.response.data.message);

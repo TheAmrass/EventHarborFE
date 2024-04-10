@@ -55,7 +55,7 @@ function UserList(props) {
                                 <td>{user.lastLogged}</td>
                                 <td>
                                     <Link className="btn btn-primary mx-2"
-                                    to={`./view/${user.userId}`}>
+                                          to={`./view/${user.userId}`}>
                                         Detail
                                     </Link>
                                     <Link className="btn btn-outline-primary mx-2"
@@ -63,7 +63,7 @@ function UserList(props) {
                                         Upravit
                                     </Link>
                                     <button className="btn btn-danger mx-2"
-                                        onClick={()=>deleteUser(user.userId)}>
+                                            onClick={()=>deleteUser(user.userId)}>
                                         Odstranit
                                     </button>
                                 </td>

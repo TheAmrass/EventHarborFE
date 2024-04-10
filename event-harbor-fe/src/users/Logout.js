@@ -7,6 +7,7 @@ function Logout(props) {
     if(localStorage.getItem('token')){
         try {
             localStorage.removeItem('token');
+            localStorage.removeItem('userId')
             // console.log("Token: " + localStorage.getItem('token'));
             console.log("Uživatel byl úspěšně odhlášen");
             window.location.reload();

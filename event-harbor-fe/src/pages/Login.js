@@ -22,9 +22,11 @@ function Login() {
     const handleSubmit=async (e)=>{
         try {
             e.preventDefault();
+            console.log(formData);
             const response = await api.post("/auth/authenticate", formData);
             localStorage.setItem('token', response.data.access_token);
-            console.log("Uživatel byl úspěšně přihlášen. Token: ", localStorage.getItem('token'));
+            localStorage.setItem('loggedId', response.data.logged_id)
+            console.log("Uživatel byl úspěšně přihlášen. Token: ", localStorage.getItem('token'), "UserId:", localStorage.getItem('loggedId'));
             window.location.reload();
         } catch (error) {
             console.error("Přihlášení se nezdařilo: ", error.response.data.message);

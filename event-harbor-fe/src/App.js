@@ -1,7 +1,7 @@
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "./layout/Navbar";
-import UserList from "./pages/UserList";
+import UserList from "./users/UserList";
 import {BrowserRouter as Router, Route, Routes, Navigate, Outlet, useNavigate} from "react-router-dom";
 import AddUser from "./users/AddUser";
 import EditUser from "./users/EditUser";
@@ -12,6 +12,10 @@ import AuthProvider from "./security/AuthProvider";
 import NavbarLoggedOut from "./layout/NavbarLoggedOut";
 import Logout from "./users/Logout";
 import Dashboard from "./pages/Dashboard";
+import Tasks from "./tasks/Tasks";
+import ViewTask from "./tasks/ViewTask";
+import AddTask from "./tasks/AddTask";
+import EditTask from "./tasks/EditTask";
 
 
 const NotFound = () => <h1>Stránka nenalezena</h1>;
@@ -37,6 +41,12 @@ function App() {
                     <Route exact path="/users/addUser" element={<AddUser/>} />
                     <Route exact path="/users/edit/:id" element={<EditUser/>}/>
                     <Route exact path="/users/view/:id" element={<ViewUser/>} />
+                </Route>
+                <Route path="/task" element={<PrivateOutlet/>}>
+                    <Route exact path="" element={<Tasks/>} />
+                    <Route exact path="/task/add" element={<AddTask/>} />
+                    <Route exact path="/task/edit/:id" element={<EditTask/>} />
+                    <Route exact path="/task/view/:id" element={<ViewTask/>} />
                 </Route>
             </Routes>
         </Router>

@@ -1,9 +1,10 @@
 import React from 'react';
+import Tasks from "../tasks/Tasks";
 
 function Dashboard(props) {
     return (
         <div>
-            <h1>Dashboard</h1>
+            <Tasks></Tasks>
         </div>
     );
 }

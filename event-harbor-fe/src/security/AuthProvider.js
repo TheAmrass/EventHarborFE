@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import {jwtDecode} from "jwt-decode";
 import {logout} from "../users/Logout";
 import {useNavigate} from "react-router-dom";
+import api from "./Api";
 
 const AuthContext = createContext();
 

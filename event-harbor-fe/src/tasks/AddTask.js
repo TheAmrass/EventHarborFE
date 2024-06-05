@@ -11,6 +11,7 @@ function AddTask(props) {
         description:"",
         priority: "",
         dueDate:"",
+        assigned:""
 
     })
 
@@ -73,6 +74,30 @@ function AddTask(props) {
                                    placeholder="Vyberte deadline"
                                    name="dueDate"
                                    value={dueDate}
+                                   onChange={(e) => onInputChange(e)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="Name" className="form-label">
+                                Přidělení úkolu uživateli
+                            </label>
+                            <input type={"text"}
+                                   className="form-control"
+                                   placeholder="Zadejte uživatele"
+                                   name="assigned"
+                                   value={title}
+                                   onChange={(e) => onInputChange(e)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="Name" className="form-label">
+                                Přiřazení k projektu
+                            </label>
+                            <input type={"text"}
+                                   className="form-control"
+                                   placeholder="Zadejte projekt"
+                                   name="project"
+                                   value={title}
                                    onChange={(e) => onInputChange(e)}
                             />
                         </div>

@@ -3,53 +3,40 @@ import {Link, useParams} from "react-router-dom";
 import api from "../security/Api";
 import moment from "moment/moment";
 
-function TaskList(props) {
+function ProjectList(props) {
 
     const userId = localStorage.getItem('loggedId');
 
-    const[tasks,setTasks] = useState([]);
+    const[projects,setProjects] = useState([]);
 
     useEffect(() => {
-        loadTasks();
+        loadProjects();
     }, []);
 
-    const loadTasks =async ()=>{
-        const result = await api.get(`tasks/${userId}`);
-        setTasks(result.data);
+    const loadProjects =async ()=>{
+        const result = await api.get(`project/user/${userId}`);
+        setProjects(result.data);
     };
 
-    const deleteTask=async(taskId)=>{
-        await api.delete(`/task/${taskId}`)
-        await loadTasks()
+    const deleteProject=async(projectId)=>{
+        await api.delete(`/project/${projectId}`)
+        await loadProjects()
     }
 
-    const completeTask=async(taskId)=>{
-        await api.put(`/task/complete/${taskId}`)
-        await loadTasks()
-    }
-
-    const valueMap = {
-        'LOW': 3,
-        'MEDIUM': 2,
-        'HIGH': 1,
-    };
 
     return (
         <div className="container">
             <div className="py-4">
-                <h1>Přehled úkolů</h1>
-                <Link className="btn btn-primary" to="../task/add">Přidat úkol</Link>
+                <h1>Přehled projektů</h1>
+                <Link className="btn btn-primary" to="../project/add">Přidat projekt</Link>
             </div>
             <div className="py-4">
                 <table className="table table-hover table-striped border shadow">
                     <thead>
                     <tr>
+                        <th scope="col">Datum</th>
                         <th scope="col">Název</th>
-                        <th scope="col">Detail</th>
-                        <th scope="col">Projekt</th>
-                        <th scope="col">Priorita</th>
-                        <th scope="col">Deadline</th>
-                        <th scope="col">Splněno</th>
+                        <th scope="col">Popis</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -58,33 +45,24 @@ function TaskList(props) {
 
 
 
-                        tasks.map((task, index) => (
-
+                        projects.map((project, index) => (
 
 
                             <tr>
-                                <td><b>{task.title}</b></td>
-                                <td>{task.description}</td>
-                                <td>
-                                    <Link >Soukromé</Link></td>
-                                <td>{valueMap[task.priority]}</td>
-                                <td>{moment(task.dueDate).format('DD.MM.YYYY')}</td>
-                                <td className={task.completed ? "text-success fw-bold" : "text-danger fw-bold"}>{task.completed ? "Dokončeno" : "Zbývá dokončit"}</td>
+                                <td>{moment(project.projectDate).format('DD.MM.YYYY')}</td>
+                                <td><b>{project.title}</b></td>
+                                <td>{project.notes}</td>
                                 <td className="col-4">
-                                    <button className="btn btn-success mx-2"
-                                            onClick={() => completeTask(task.taskId)}>
-                                        {task.completed ? "X" : "✓"}
-                                    </button>
                                     <Link className="btn btn-primary mx-2"
-                                          to={`../task/view/${task.taskId}`}>
+                                          to={`../project/view/${project.projectId}`}>
                                         Detail
                                     </Link>
                                     <Link className="btn btn-outline-primary mx-2"
-                                          to={`../task/edit/${task.taskId}`}>
+                                          to={`../project/edit/${project.projectId}`}>
                                         Upravit
                                     </Link>
                                     <button className="btn btn-danger mx-2"
-                                            onClick={() => deleteTask(task.taskId)}>
+                                            onClick={() => deleteProject(project.projectId)}>
                                         Odstranit
                                     </button>
                                 </td>
@@ -113,4 +91,4 @@ function TaskList(props) {
     );
 }
 
-export default TaskList;
+export default ProjectList;

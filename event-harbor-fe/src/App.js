@@ -16,6 +16,10 @@ import Tasks from "./tasks/Tasks";
 import ViewTask from "./tasks/ViewTask";
 import AddTask from "./tasks/AddTask";
 import EditTask from "./tasks/EditTask";
+import Projects from "./projects/Projects";
+import AddProject from "./projects/AddProject";
+import ViewProject from "./projects/ViewProject";
+import EditProject from "./projects/EditProject";
 
 
 const NotFound = () => <h1>Stránka nenalezena</h1>;
@@ -47,6 +51,12 @@ function App() {
                     <Route exact path="/task/add" element={<AddTask/>} />
                     <Route exact path="/task/edit/:id" element={<EditTask/>} />
                     <Route exact path="/task/view/:id" element={<ViewTask/>} />
+                </Route>
+                <Route path="/project" element={<PrivateOutlet/>}>
+                    <Route exact path="" element={<Projects/>} />
+                    <Route exact path="/project/add" element={<AddProject/>} />
+                    <Route exact path="/project/edit/:id" element={<EditProject/>} />
+                    <Route exact path="/project/view/:id" element={<ViewProject/>} />
                 </Route>
             </Routes>
         </Router>

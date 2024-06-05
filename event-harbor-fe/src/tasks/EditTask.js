@@ -16,6 +16,8 @@ function EditTask(props) {
         description:"",
         priority: "",
         dueDate:"",
+        assigned:"",
+        project:""
 
     })
 
@@ -89,6 +91,30 @@ function EditTask(props) {
                                    name="dueDate"
                                    value={moment(dueDate).format('YYYY-MM-DD')}
                                    onChange={(e) => onInputChange(e)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="Name" className="form-label">
+                                Přidělení úkolu uživateli
+                            </label>
+                            <input type={"text"}
+                                   className="form-control"
+                                   placeholder="Zadejte uživatele"
+                                   name="assigned"
+                                 /*  value={assigned}
+                                   onChange={(e) => onInputChange(e)}*/
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="Name" className="form-label">
+                                Přiřazení k projektu
+                            </label>
+                            <input type={"text"}
+                                   className="form-control"
+                                   placeholder="Zadejte projekt"
+                                   name="project"
+                                /*   value={project}
+                                   onChange={(e) => onInputChange(e)}*/
                             />
                         </div>
                         <div className="mb-3">

@@ -15,7 +15,9 @@ const Navbar = () => {
                     <div className="containter-fluid">
                         <Link className="btn btn-outline-light mx-2" to={"/users"}>Přehled uživatel</Link>
                         <Link className="btn btn-outline-light mx-2" to={"/task"}>Přehled úkolů</Link>
-                        <Link className="btn btn-outline-light mx-2" to={"/logout"}>Odhlásit se</Link>
+                        <Link className="btn btn-outline-light mx-2" to={"/project"}>Přehled projektů</Link>
+                        <Link className="btn btn-outline-light mx-2" to={"/task"}>Můj účet</Link>
+                        <Link className="btn btn-danger mx-2" to={"/logout"}>Odhlásit se</Link>
                     </div>
                 </div>
             </nav>

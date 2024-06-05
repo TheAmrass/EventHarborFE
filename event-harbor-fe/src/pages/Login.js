@@ -25,8 +25,9 @@ function Login() {
             console.log(formData);
             const response = await api.post("/auth/authenticate", formData);
             localStorage.setItem('token', response.data.access_token);
-            localStorage.setItem('loggedId', response.data.logged_id)
-            console.log("Uživatel byl úspěšně přihlášen. Token: ", localStorage.getItem('token'), "UserId:", localStorage.getItem('loggedId'));
+            localStorage.setItem('loggedId', response.data.logged_id);
+            localStorage.setItem('role', response.data.role)
+            console.log("Uživatel byl úspěšně přihlášen. Token: ", localStorage.getItem('token'), "UserId:", localStorage.getItem('loggedId'), "Role: ", localStorage.getItem('role'));
             window.location.reload();
         } catch (error) {
             console.error("Přihlášení se nezdařilo: ", error.response.data.message);

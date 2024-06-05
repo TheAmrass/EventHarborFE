@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import api from "../security/Api";
+import Select from "react-select";
 
 function AddTask(props) {
     let navigate = useNavigate();
@@ -11,20 +12,43 @@ function AddTask(props) {
         description:"",
         priority: "",
         dueDate:"",
-        assigned:""
+        userIds:""
 
     })
 
-    const{title, description, dueDate, priority}=task;
+    const{title, description, dueDate, priority, userIds}=task;
 
     const onInputChange=(e)=>{
         setTask({...task, [e.target.name]:e.target.value})
 
     }
 
+    const [users, setUsers] = useState([]); // Seznam uživatelů načtený z backendu
+    const [selectedUsers, setSelectedUsers] = useState([]); // Vybraní uživatelé
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await api.get("/users");
+                setUsers(result.data);
+            } catch (error) {
+                console.error("Chyba při načítání uživatelů:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
+    const userIdAndName = users.map(user => ({
+        value: user.userId,
+        label: user.name
+    }));
+
     const onSubmit=async (e)=>{
         try {
             e.preventDefault();
+            task.userIds = selectedUsers.map(user => user.value);
             const response = await api.post(`/task/add/${userId}`, task);
             console.log("Úkol byl úspěšně přidán.", response.data);
         } catch (error) {
@@ -81,12 +105,13 @@ function AddTask(props) {
                             <label htmlFor="Name" className="form-label">
                                 Přidělení úkolu uživateli
                             </label>
-                            <input type={"text"}
-                                   className="form-control"
-                                   placeholder="Zadejte uživatele"
-                                   name="assigned"
-                                   value={title}
-                                   onChange={(e) => onInputChange(e)}
+                            <Select
+                                isMulti
+                                name="assignedTo"
+                                options={userIdAndName}
+                                className="basic-multi-select"
+                                onChange={(choice) => setSelectedUsers(choice)}
+                                classNamePrefix="select"
                             />
                         </div>
                         <div className="mb-3">

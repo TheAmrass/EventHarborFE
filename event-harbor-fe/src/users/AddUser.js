@@ -25,6 +25,7 @@ function AddUser(props) {
     const onSubmit=async (e)=>{
         try {
             e.preventDefault();
+            console.log(user)
             const response = await api.post("auth/register", user);
             console.log("Uživatel byl úspěšně zaregistrován.", response.data);
         } catch (error) {

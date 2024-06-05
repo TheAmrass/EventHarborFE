@@ -9,7 +9,8 @@ function ViewTask(props) {
         description:"",
         createdDate:"",
         dueDate:"",
-        completed:""
+        completed:"",
+        users:[]
 
     })
 
@@ -26,6 +27,8 @@ function ViewTask(props) {
         console.log(result.data)
         setTask(result.data);
     }
+
+    console.log(task)
 
     return (
         <div className="container">
@@ -51,6 +54,15 @@ function ViewTask(props) {
                                 <li className="list-group-item">
                                     <b>Deadline: </b>
                                     {task.dueDate}
+                                </li>
+                                <li className="list-group-item">
+                                    <b>Přidělení uživatelé: </b>
+                                   {task.users.map((user, index) => (
+                                        <span key={user.userId}>
+                                            {user.name}
+                                            {index !== task.users.length - 1 ? ', ' : ''}
+                                        </span>
+                                    ))}
                                 </li>
                                 <li className="list-group-item">
                                     <b>Dokončeno: </b>

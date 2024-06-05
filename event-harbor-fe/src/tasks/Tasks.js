@@ -46,8 +46,8 @@ function TaskList(props) {
                     <tr>
                         <th scope="col">Název</th>
                         <th scope="col">Detail</th>
-                        <th scope="col">Projekt</th>
                         <th scope="col">Priorita</th>
+                        <th scope="col">Projekt</th>
                         <th scope="col">Deadline</th>
                         <th scope="col">Splněno</th>
                     </tr>
@@ -61,13 +61,19 @@ function TaskList(props) {
                         tasks.map((task, index) => (
 
 
-
                             <tr>
                                 <td><b>{task.title}</b></td>
                                 <td>{task.description}</td>
-                                <td>
-                                    <Link >Soukromé</Link></td>
                                 <td>{valueMap[task.priority]}</td>
+                                <td>
+                                    {task.project ? (
+                                        <Link to={"../project/view/" + task.project.projectId}>
+                                            {task.project.title}
+                                        </Link>
+                                    ) : (
+                                        <i>Bez projektu</i>
+                                    )}
+                                </td>
                                 <td>{moment(task.dueDate).format('DD.MM.YYYY')}</td>
                                 <td className={task.completed ? "text-success fw-bold" : "text-danger fw-bold"}>{task.completed ? "Dokončeno" : "Zbývá dokončit"}</td>
                                 <td className="col-4">

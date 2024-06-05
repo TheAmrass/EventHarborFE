@@ -3,6 +3,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import api from "../security/Api";
 import {format} from 'date-fns';
 import moment from "moment";
+import Select from "react-select";
 
 function EditTask(props) {
     let navigate = useNavigate();
@@ -11,13 +12,33 @@ function EditTask(props) {
     const params = useParams();
     const taskId = params.id;
 
+    const [usersFromDb, setUsersFromDb] = useState([]); // Seznam uživatelů načtený z backendu
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await api.get("/users");
+                setUsersFromDb(result.data);
+            } catch (error) {
+                console.error("Chyba při načítání uživatelů:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const userIdAndName = usersFromDb.map(user => ({
+        value: user.userId,
+        label: user.name
+    }));
+
     const[task, setTask]=useState({
         title:"",
         description:"",
         priority: "",
         dueDate:"",
-        assigned:"",
-        project:""
+        userIds:[],
+        project:"",
+        userId:""
 
     })
 
@@ -28,6 +49,8 @@ function EditTask(props) {
 
     }
 
+    const [selectedUsers, setSelectedUsers] = useState([]);
+
     useEffect(() => {
         loadTask()
     }, []);
@@ -36,10 +59,17 @@ function EditTask(props) {
         const result = await api.get(`/task/${taskId}`)
         console.log(result.data)
         setTask(result.data);
+        const originalUserIdAndName = result.data.users.map(user => ({
+            value: user.userId,
+            label: user.name
+        }));
+        setSelectedUsers(originalUserIdAndName);
     }
 
     const onSubmit=async (e)=>{
         e.preventDefault();
+        task.userIds = selectedUsers.map(user => user.value)
+        task.userId = task.createdBy.userId;
         await api.put(`/task/${taskId}`,task)
         navigate("/task");
     }
@@ -97,12 +127,14 @@ function EditTask(props) {
                             <label htmlFor="Name" className="form-label">
                                 Přidělení úkolu uživateli
                             </label>
-                            <input type={"text"}
-                                   className="form-control"
-                                   placeholder="Zadejte uživatele"
-                                   name="assigned"
-                                 /*  value={assigned}
-                                   onChange={(e) => onInputChange(e)}*/
+                            <Select
+                                isMulti
+                                name="assignedTo"
+                                options={userIdAndName}
+                                value={selectedUsers}
+                                className="basic-multi-select"
+                                onChange={(choice) =>  setSelectedUsers(choice)}
+                                classNamePrefix="select"
                             />
                         </div>
                         <div className="mb-3">

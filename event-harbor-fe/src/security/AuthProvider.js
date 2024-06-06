@@ -50,6 +50,8 @@ const AuthProvider = ({ children }) => {
 
 
 
+
+
 // Volání funkce při načítání aplikace nebo při změně routy
     checkTokenValidity();
 

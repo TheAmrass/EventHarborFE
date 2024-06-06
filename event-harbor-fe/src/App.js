@@ -20,6 +20,8 @@ import Projects from "./projects/Projects";
 import AddProject from "./projects/AddProject";
 import ViewProject from "./projects/ViewProject";
 import EditProject from "./projects/EditProject";
+import Forbidden from "./pages/Forbidden";
+import RolesAuthRoute from "./security/RolesAuthRoute";
 
 
 const NotFound = () => <h1>Stránka nenalezena</h1>;
@@ -28,6 +30,9 @@ const auth = localStorage.getItem('token');
 function PrivateOutlet() {
     return auth ? <Outlet /> : <Navigate to="/login" />;
 }
+
+console.log(localStorage.getItem('role'))
+
 
 function App() {
   return (
@@ -38,14 +43,17 @@ function App() {
             <Routes>
                 <Route path="/" element={auth ? <Dashboard/> : <Login/>} />
                 <Route path="*" element={<NotFound/>} />
+                <Route path="/forbidden" element={<Forbidden/>} />
                 <Route exact path="/logout" element={<Logout/>} />
 
                 <Route path="/users" element={<PrivateOutlet/>}>
-                    <Route exact path="" element={<UserList/>} />
-                    <Route exact path="/users/addUser" element={<AddUser/>} />
-                    <Route exact path="/users/edit/:id" element={<EditUser/>}/>
-                    <Route exact path="/users/view/:id" element={<ViewUser/>} />
+                    <Route exact path="" element={<RolesAuthRoute allowedRoles={['ADMIN']}>{<UserList/>}</RolesAuthRoute>} />
+                    <Route exact path="/users/addUser" element={<RolesAuthRoute allowedRoles={['ADMIN']}>{<AddUser/>}</RolesAuthRoute>} />
+                    <Route exact path="/users/edit/:id" element={<RolesAuthRoute allowedRoles={['ADMIN']}>{<EditUser/>}</RolesAuthRoute>} />
+                    <Route exact path="/users/view/:id" element={<RolesAuthRoute allowedRoles={['ADMIN']}>{<ViewUser/>}</RolesAuthRoute>} />
                 </Route>
+
+
                 <Route path="/task" element={<PrivateOutlet/>}>
                     <Route exact path="" element={<Tasks/>} />
                     <Route exact path="/task/add" element={<AddTask/>} />
@@ -54,8 +62,8 @@ function App() {
                 </Route>
                 <Route path="/project" element={<PrivateOutlet/>}>
                     <Route exact path="" element={<Projects/>} />
-                    <Route exact path="/project/add" element={<AddProject/>} />
-                    <Route exact path="/project/edit/:id" element={<EditProject/>} />
+                    <Route exact path="/project/add" element={<RolesAuthRoute allowedRoles={['MODERATOR']}>{<AddProject/>}</RolesAuthRoute>} />
+                    <Route exact path="/project/edit/:id" element={<RolesAuthRoute allowedRoles={['MODERATOR']}>{<EditProject/>}</RolesAuthRoute>} />
                     <Route exact path="/project/view/:id" element={<ViewProject/>} />
                 </Route>
             </Routes>

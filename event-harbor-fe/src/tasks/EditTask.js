@@ -7,7 +7,8 @@ import Select from "react-select";
 
 function EditTask(props) {
     let navigate = useNavigate();
-    const userId = localStorage.getItem('loggedId')
+    const userId = localStorage.getItem('loggedId');
+    const [error, setError] = useState("");
 
     const params = useParams();
     const taskId = params.id;
@@ -67,11 +68,20 @@ function EditTask(props) {
     }
 
     const onSubmit=async (e)=>{
-        e.preventDefault();
-        task.userIds = selectedUsers.map(user => user.value)
-        task.userId = task.createdBy.userId;
-        await api.put(`/task/${taskId}`,task)
-        navigate("/task");
+        try{
+            e.preventDefault();
+            task.userIds = selectedUsers.map(user => user.value)
+            task.userId = task.createdBy.userId;
+            await api.put(`/task/${taskId}`,task)
+            navigate("/task");
+        }
+        catch (error) {
+            setError(
+                <div className="alert alert-danger" role="alert">
+                    Chyba při zadávání úkolu!
+                </div>
+            );
+        }
     }
 
     return (
@@ -79,6 +89,7 @@ function EditTask(props) {
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow border rounded p-4 mt-2">
                     <h2 className="text-center m-4">Upravit úkol</h2>
+                    {error ? error : ""}
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">
@@ -86,10 +97,11 @@ function EditTask(props) {
                             </label>
                             <input type={"text"}
                                    className="form-control"
-                                   placeholder="Zadejte jméno"
+                                   placeholder="Zadejte název"
                                    name="title"
                                    value={title}
                                    onChange={(e) => onInputChange(e)}
+                                   required
                             />
                             <input type={"hidden"}
                                    className="form-control"
@@ -121,6 +133,7 @@ function EditTask(props) {
                                    name="dueDate"
                                    value={moment(dueDate).format('YYYY-MM-DD')}
                                    onChange={(e) => onInputChange(e)}
+                                   required
                             />
                         </div>
                         <div className="mb-3">
@@ -135,6 +148,7 @@ function EditTask(props) {
                                 className="basic-multi-select"
                                 onChange={(choice) =>  setSelectedUsers(choice)}
                                 classNamePrefix="select"
+                                required
                             />
                         </div>
                         <div className="mb-3">

@@ -91,6 +91,7 @@ function EditProject(props) {
                                    name="title"
                                    value={title}
                                    onChange={(e) => onInputChange(e)}
+                                   required
                             />
                         </div>
                         <div className="mb-3">
@@ -103,7 +104,8 @@ function EditProject(props) {
                                           placeholder="Zadejte popis úkolu"
                                           name="notes"
                                           value={notes}
-                                          onChange={(e) => onInputChange(e)}></textarea>
+                                          onChange={(e) => onInputChange(e)}>
+                                </textarea>
                             </div>
                         </div>
                         <div className="mb-3">
@@ -116,6 +118,7 @@ function EditProject(props) {
                                    name="projectDate"
                                    value={moment(projectDate).format('YYYY-MM-DD')}
                                    onChange={(e) => onInputChange(e)}
+                                   required
                             />
                         </div>
 
@@ -131,6 +134,7 @@ function EditProject(props) {
                                 className="basic-multi-select"
                                 onChange={(choice) =>  setSelectedUsers(choice)}
                                 classNamePrefix="select"
+                                required
                             />
                         </div>
                         <button type="submit" className="btn btn-outline-primary">

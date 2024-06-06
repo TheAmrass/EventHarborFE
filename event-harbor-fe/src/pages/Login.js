@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
-import {redirect, useNavigate} from "react-router-dom";
 import api from "../security/Api";
-import {logout} from "../users/Logout";
+import {useForm} from 'react-hook-form';
 
 
 
 function Login() {
-    let navigate = useNavigate();
+
+    const[error, setError] = useState("");
 
     const [formData, setFormData] = useState({
         email: '',
@@ -32,14 +31,20 @@ function Login() {
             window.location.reload();
         } catch (error) {
             console.error("Přihlášení se nezdařilo: ", error.response.data.message);
+            setError(
+                <div className="alert alert-danger" role="alert">
+                    Zadané údaje jsou neplatné!
+                </div>
+            )
         }
     }
 
 
     return (
-        <div className="container col-2">
+        <div className="container col-4">
             <h2>Přihlášení</h2>
-            <form onSubmit={handleSubmit}>
+            {error ? error : ""}
+            <form onSubmit={handleSubmit} className=" mx-auto">
                 <div className="form-group mt-3">
                     <label htmlFor="email">E-mail</label>
                     <input

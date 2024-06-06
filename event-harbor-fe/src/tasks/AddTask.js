@@ -6,6 +6,8 @@ import Select from "react-select";
 function AddTask(props) {
     let navigate = useNavigate();
     const userId = localStorage.getItem('loggedId')
+    const[error, setError] = useState("");
+
 
     const[task, setTask]=useState({
         title:"",
@@ -51,11 +53,15 @@ function AddTask(props) {
             task.userIds = selectedUsers.map(user => user.value);
             const response = await api.post(`/task/add/${userId}`, task);
             console.log("Úkol byl úspěšně přidán.", response.data);
+            navigate("/task");
         } catch (error) {
             console.error("Chyba při přidávání úkolu: ", error.response.data.message);
+            setError(
+                <div className="alert alert-danger" role="alert">
+                    Chyba při zadávání úkolu!
+                </div>
+            );
         }
-
-        navigate("/task");
     }
 
     return (
@@ -63,6 +69,7 @@ function AddTask(props) {
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow border rounded p-4 mt-2">
                     <h2 className="text-center m-4">Přidat úkol</h2>
+                    {error ? error : ""}
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">

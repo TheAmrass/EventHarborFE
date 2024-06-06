@@ -57,6 +57,7 @@ function AddUser(props) {
                                    name="name"
                                    value={name}
                                    onChange={(e) => onInputChange(e)}
+                                   required
                             />
                         </div>
                         <div className="mb-3">
@@ -69,6 +70,7 @@ function AddUser(props) {
                                    name="email"
                                    value={email}
                                    onChange={(e) => onInputChange(e)}
+                                   required
                             />
                         </div>
                         <div className="mb-3">
@@ -80,6 +82,7 @@ function AddUser(props) {
                                    placeholder="Zadejte heslo"
                                    name="password"
                                    onChange={(e) => onInputChange(e)}
+                                   required
                             />
                         </div>
                         <div className="mb-3">
@@ -91,6 +94,7 @@ function AddUser(props) {
                                 name="role"
                                 value={role}
                                 onChange={(e)=> onInputChange(e)}
+                                required
                             >
                                 <option selected>Vyberte příslušnou roli</option>
                                 <option value="USER">Uživatel</option>

@@ -6,6 +6,7 @@ import Select from "react-select";
 function AddProject(props) {
     let navigate = useNavigate();
     const userId = localStorage.getItem('loggedId')
+    const [error, setError] = useState("");
 
     const[project, setProject]=useState({
         title:"",
@@ -33,6 +34,11 @@ function AddProject(props) {
                 setUsers(result.data);
             } catch (error) {
                 console.error("Chyba při načítání uživatelů:", error);
+                setError(
+                    <div className="alert alert-danger" role="alert">
+                        Chyba při vytváření projektu!
+                    </div>
+                );
             }
         };
 
@@ -53,11 +59,10 @@ function AddProject(props) {
             console.log(project)
             const response = await api.post(`/project/add/${userId}`, project);
             console.log("Projekt byl úspěšně přidán.", response.data);
+            navigate("/project");
         } catch (error) {
             console.error("Chyba při přidávání projektu: ", error.response.data.message);
         }
-
-        navigate("/project");
     }
 
 
@@ -67,6 +72,7 @@ function AddProject(props) {
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow border rounded p-4 mt-2">
                     <h2 className="text-center m-4">Přidat projekt</h2>
+                    {error ? error : ""}
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">
@@ -78,6 +84,7 @@ function AddProject(props) {
                                    name="title"
                                    value={title}
                                    onChange={(e) => onInputChange(e)}
+                                   required
                             />
                         </div>
                         <div className="mb-3">
@@ -90,7 +97,8 @@ function AddProject(props) {
                                           placeholder="Zadejte popis úkolu"
                                           name="notes"
                                           value={notes}
-                                          onChange={(e) => onInputChange(e)}></textarea>
+                                          onChange={(e) => onInputChange(e)}>
+                                </textarea>
                             </div>
                         </div>
                         <div className="mb-3">
@@ -103,6 +111,7 @@ function AddProject(props) {
                                    name="projectDate"
                                    value={projectDate}
                                    onChange={(e) => onInputChange(e)}
+                                   required
                             />
                         </div>
 
@@ -117,6 +126,7 @@ function AddProject(props) {
                                 className="basic-multi-select"
                                 onChange={(choice) => setSelectedUsers(choice)}
                                 classNamePrefix="select"
+                                required
                             />
                         </div>
                         <button type="submit" className="btn btn-outline-primary">

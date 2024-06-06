@@ -26,6 +26,7 @@ function Login() {
             const response = await api.post("/auth/authenticate", formData);
             localStorage.setItem('token', response.data.access_token);
             localStorage.setItem('loggedId', response.data.logged_id);
+            localStorage.setItem('username', response.data.username);
             localStorage.setItem('role', response.data.role)
             console.log("Uživatel byl úspěšně přihlášen. Token: ", localStorage.getItem('token'), "UserId:", localStorage.getItem('loggedId'), "Role: ", localStorage.getItem('role'));
             window.location.reload();
@@ -36,11 +37,11 @@ function Login() {
 
 
     return (
-        <div className="container">
+        <div className="container col-2">
             <h2>Přihlášení</h2>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Uživatelské jméno</label>
+                <div className="form-group mt-3">
+                    <label htmlFor="email">E-mail</label>
                     <input
                         type="text"
                         className="form-control"
@@ -52,7 +53,7 @@ function Login() {
                     />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group mt-3">
                     <label htmlFor="password">Heslo</label>
                     <input
                         type="password"
@@ -65,7 +66,7 @@ function Login() {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary mt-3">
                     Přihlásit se
                 </button>
             </form>

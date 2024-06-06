@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {Link, useParams} from "react-router-dom";
 import api from "../security/Api";
 import moment from "moment/moment";
+import AddProject from "./AddProject";
+import RolesAuthRoute from "../security/RolesAuthRoute";
+import RolesAuthContent from "../security/RolesAuthContent";
 
 function ProjectList(props) {
 
@@ -28,7 +31,7 @@ function ProjectList(props) {
         <div className="container">
             <div className="py-4">
                 <h1>Přehled projektů</h1>
-                <Link className="btn btn-primary" to="../project/add">Přidat projekt</Link>
+                <RolesAuthContent allowedRoles={['MODERATOR']}>{<Link className="btn btn-primary" to="../project/add">Přidat projekt</Link>}</RolesAuthContent>
             </div>
             <div className="py-4">
                 <table className="table table-hover table-striped border shadow">
@@ -57,6 +60,7 @@ function ProjectList(props) {
                                           to={`../project/view/${project.projectId}`}>
                                         Detail
                                     </Link>
+                                    <RolesAuthContent allowedRoles={['MODERATOR']}>
                                     <Link className="btn btn-outline-primary mx-2"
                                           to={`../project/edit/${project.projectId}`}>
                                         Upravit
@@ -65,6 +69,7 @@ function ProjectList(props) {
                                             onClick={() => deleteProject(project.projectId)}>
                                         Odstranit
                                     </button>
+                                    </RolesAuthContent>
                                 </td>
                             </tr>
 
